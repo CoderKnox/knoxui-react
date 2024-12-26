@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /old
+/dist
 /.npm
 /.pnp
 .pnp.*
