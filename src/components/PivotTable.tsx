@@ -1,13 +1,19 @@
-"use client";
-
-import React from "react";
+import * as React from 'react';
+import { FileDown } from 'lucide-react';
 import Button from "./Button";
 import Radio from "./Radio";
 import Input from "./Input";
-import { FileDown } from "lucide-react";
 
-export function PivotTable({ initialData }) {
-  const sortData = (data, fields) => {
+interface DataItem {
+  [key: string]: any;
+}
+
+interface PivotTableProps {
+  initialData: DataItem[];
+}
+
+export const PivotTable: React.FC<PivotTableProps> = ({ initialData }) => {
+  const sortData = (data: DataItem[], fields: string[]): DataItem[] => {
     return [...data].sort((a, b) => {
       for (let field of fields) {
         if (a[field] < b[field]) return -1;
@@ -17,13 +23,13 @@ export function PivotTable({ initialData }) {
     });
   };
 
-  const [data] = React.useState(initialData);
-  const [values, setValues] = React.useState([]);
-  const [rows, setRows] = React.useState([]);
-  const [columns, setColumns] = React.useState([]);
-  const [aggregationType, setAggregationType] = React.useState("sum");
-  const [draggedValue, setDraggedValue] = React.useState(null);
-  const [swapValueColumns, setSwapValueColumns] = React.useState(false);
+  const [data] = React.useState<DataItem[]>(initialData);
+  const [values, setValues] = React.useState<string[]>([]);
+  const [rows, setRows] = React.useState<string[]>([]);
+  const [columns, setColumns] = React.useState<string[]>([]);
+  const [aggregationType, setAggregationType] = React.useState<"sum" | "count">("sum");
+  const [draggedValue, setDraggedValue] = React.useState<string | null>(null);
+  const [swapValueColumns, setSwapValueColumns] = React.useState<boolean>(false);
 
   const availableFields = React.useMemo(() => {
     const selectedFields = [...values, ...rows, ...columns];
@@ -37,22 +43,22 @@ export function PivotTable({ initialData }) {
     ].filter((field) => !selectedFields.includes(field));
   }, [values, rows, columns]);
 
-  const handleDragStart = (e, field) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, field: string) => {
     e.dataTransfer.setData("field", field);
   };
 
-  const handleValueDragStart = (e, value) => {
+  const handleValueDragStart = (e: React.DragEvent<HTMLDivElement>, value: string) => {
     setDraggedValue(value);
     e.dataTransfer.setData("valueField", value);
   };
 
-  const handleValueDragOver = (e, targetValue) => {
+  const handleValueDragOver = (e: React.DragEvent<HTMLTableHeaderCellElement>, targetValue: string) => {
     if (draggedValue && draggedValue !== targetValue) {
       e.preventDefault();
     }
   };
 
-  const handleValueDrop = (e, targetValue) => {
+  const handleValueDrop = (e: React.DragEvent<HTMLTableHeaderCellElement>, targetValue: string) => {
     e.preventDefault();
     const sourceValue = draggedValue;
     if (sourceValue && sourceValue !== targetValue) {
@@ -66,7 +72,7 @@ export function PivotTable({ initialData }) {
     setDraggedValue(null);
   };
 
-  const handleDrop = (e, targetSection) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, targetSection: "values" | "rows" | "columns") => {
     e.preventDefault();
     const field = e.dataTransfer.getData("field");
 
@@ -87,11 +93,11 @@ export function PivotTable({ initialData }) {
     }
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
-  const removeField = (field, section) => {
+  const removeField = (field: string, section: "values" | "rows" | "columns") => {
     switch (section) {
       case "values":
         setValues(values.filter((f) => f !== field));
@@ -105,7 +111,7 @@ export function PivotTable({ initialData }) {
     }
   };
 
-  const calculateValue = (groupedData, valueField, columnValue) => {
+  const calculateValue = (groupedData: DataItem[], valueField: string, columnValue?: string): number => {
     if (!groupedData) return 0;
 
     const relevantData = columnValue
@@ -123,11 +129,11 @@ export function PivotTable({ initialData }) {
     return relevantData.length;
   };
 
-  const getUniqueColumnValues = (colField) => {
-    return [...new Set(data.map((item) => item[colField]))];
+  const getUniqueColumnValues = (colField: string): string[] => {
+    return Array.from(new Set(data.map((item) => item[colField])));
   };
 
-  const groupData = () => {
+  const groupData = (): { [key: string]: DataItem[] } => {
     const sortedData = sortData(data, rows);
     return sortedData.reduce((acc, item) => {
       const rowKey = rows.map((field) => item[field]).join("-");
@@ -136,10 +142,10 @@ export function PivotTable({ initialData }) {
       }
       acc[rowKey].push(item);
       return acc;
-    }, {});
+    }, {} as { [key: string]: DataItem[] });
   };
 
-  const shouldRenderCell = (rowIndex, cellIndex, uniqueRows) => {
+  const shouldRenderCell = (rowIndex: number, cellIndex: number, uniqueRows: string[]): boolean => {
     if (rowIndex === 0) return true;
 
     const currentRow = uniqueRows[rowIndex].split("-");
@@ -153,7 +159,7 @@ export function PivotTable({ initialData }) {
     return false;
   };
 
-  const getRowSpan = (rowIndex, cellIndex, uniqueRows) => {
+  const getRowSpan = (rowIndex: number, cellIndex: number, uniqueRows: string[]): number => {
     const currentRow = uniqueRows[rowIndex].split("-");
     let span = 1;
 
@@ -181,18 +187,18 @@ export function PivotTable({ initialData }) {
 
   const renderTable = () => {
     const groupedData = groupData();
-    const uniqueRows = [
-      ...new Set(
+    const uniqueRows = Array.from(
+      new Set(
         data.map((item) => rows.map((field) => item[field]).join("-"))
-      ),
-    ];
+      )
+    );
     const sortedUniqueRows = sortData(
       uniqueRows.map((row) => {
         const fields = row.split("-");
         return rows.reduce((obj, field, index) => {
           obj[field] = fields[index];
           return obj;
-        }, {});
+        }, {} as DataItem);
       }),
       rows
     ).map((row) => rows.map((field) => row[field]).join("-"));
@@ -207,7 +213,7 @@ export function PivotTable({ initialData }) {
       }
       acc[parentKey].push(row);
       return acc;
-    }, {});
+    }, {} as { [key: string]: string[] });
 
     return (
       <div className="overflow-x-auto">
@@ -430,14 +436,14 @@ export function PivotTable({ initialData }) {
                   onChange={() => setAggregationType("sum")}
                   label={"SUM"}
                   isButton={true}
-                  size="sm"
+                  size="s"
                 />
                 <Radio
                   checked={aggregationType === "count"}
                   onChange={() => setAggregationType("count")}
                   label={"COUNT"}
                   isButton={true}
-                  size="sm"
+                  size="s"
                 />
               </div>
               <div>
@@ -468,7 +474,7 @@ export function PivotTable({ initialData }) {
                 <div
                   key={field}
                   className="bg-base-100 border p-2 mb-1 rounded flex justify-between items-center cursor-move hover:shadow-lg duration-200"
-                  draggable // Corrected dragable to draggable
+                  draggable
                   onDragStart={(e) => handleDragStart(e, field)}
                 >
                   <span>{field}</span>
@@ -529,14 +535,12 @@ export function PivotTable({ initialData }) {
               {/* Global Search */}
               <Input color='secondary' placeholder="Global Search" title='Real time search in table' className={'rounded-none'}/>
               {/* Export buttons */}
-              <Button title='Export to excel' color="success" className="py-2.5"><FileDown size='16' /></Button>
-              <Button title='Export to PDF' color="error" className="py-2.5"><FileDown size='16' /></Button>
+              <Button title='Export to excel' color="success" className="py-2.5"><FileDown size={16} /></Button>
+              <Button title='Export to PDF' color="error" className="py-2.5"><FileDown size={16} /></Button>
             </div>
         </div>
 
         {values.length > 0 && rows.length > 0 && (
-
-
           <div className="p-2">
             <div className="flex justify-between mb-4">
               <input
@@ -559,4 +563,7 @@ export function PivotTable({ initialData }) {
       </div>
     </div>
   );
-}
+};
+
+export default PivotTable;
+

@@ -1,4 +1,30 @@
-const sizeClasses = {
+import * as React from 'react';
+
+interface SizeClasses {
+  [key: string]: string;
+}
+
+interface ColorClasses {
+  [key: string]: string;
+}
+
+interface ClickEffects {
+  [key: string]: string;
+}
+
+interface ButtonProps {
+  children: React.ReactNode;
+  size?: keyof SizeClasses;
+  color?: keyof ColorClasses;
+  clickEffect?: keyof ClickEffects;
+  isLoading?: boolean;
+  className?: string;
+  disabled?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  [key: string]: any;
+}
+
+const sizeClasses: SizeClasses = {
   xs: 'px-2 py-0.5 text-xs',
   s: 'px-3 py-1 text-sm',
   m: 'px-4 py-1.5 text-base',
@@ -6,7 +32,7 @@ const sizeClasses = {
   xl: 'px-6 py-2.5 text-xl',
 };
 
-const colorClasses = {
+const colorClasses: ColorClasses = {
   primary: 'bg-primary border-primary hover:bg-primary/50 text-white',
   secondary: 'bg-secondary border-secondary hover:bg-secondary-600 text-white',
   success: 'bg-success border-success hover:bg-success-600 text-white',
@@ -15,13 +41,13 @@ const colorClasses = {
   ghost: 'bg-ghost border-ghost hover:bg-gray-100 text-gray-800 dark:text-gray-100 dark:hover:bg-gray-800/50',
 };
 
-const clickEffects = {
+const clickEffects: ClickEffects = {
   ripple: 'overflow-hidden relative',
   push: 'transform active:scale-90 transition-transform',
   none: '',
 };
 
-const Button = ({
+const Button: React.FC<ButtonProps> = ({
   children,
   size = 'm',
   color = 'primary',
@@ -29,9 +55,10 @@ const Button = ({
   isLoading = false,
   className = '',
   disabled = false,
+  onClick,
   ...props
 }) => {
-  var baseClasses = `font-semibold rounded-md transition-colors duration-400 h-min select-none border duration-200 transition-all hover:shadow-lg focus:shadow-lg ${disabled && 'opacity-90 cursor-not-allowed'} ${className}`; ;
+  let baseClasses = `font-semibold rounded-md transition-colors duration-400 h-min select-none border duration-200 transition-all hover:shadow-lg focus:shadow-lg ${disabled && 'opacity-90 cursor-not-allowed'} ${className}`;
   const sizeClass = sizeClasses[size] || sizeClasses.m;
   const colorClass = colorClasses[color] || colorClasses.primary;
   const effectClass = clickEffects[clickEffect] || clickEffects.ripple;
@@ -40,34 +67,33 @@ const Button = ({
     baseClasses = `${baseClasses} opacity-90 cursor-progress`;
   }
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (clickEffect === 'ripple' && !isLoading) {
       const button = event.currentTarget;
-      const ripple = button.querySelector('.new-ripple');
+      const ripple = button.querySelector('.new-ripple') as HTMLElement;
       
-      // Calculate position
-      const rect = button.getBoundingClientRect();
-      const left = event.clientX - rect.left;
-      const top = event.clientY - rect.top;
-      const circleSize = Math.max(rect.width, rect.height);
-      
-      // Set position and add ripple effect
-      ripple.style.left = `${left-(circleSize/4)}px`;
-      ripple.style.top = `${top-(circleSize/4)}px`;
-      ripple.style.width = `${circleSize/2}px`;
-      ripple.style.height = `${circleSize/2}px`;
-      ripple.classList.remove('hidden');
-      ripple.classList.add('animate-ripple');
+      if (ripple) {
+        const rect = button.getBoundingClientRect();
+        const left = event.clientX - rect.left;
+        const top = event.clientY - rect.top;
+        const circleSize = Math.max(rect.width, rect.height);
+        
+        ripple.style.left = `${left-(circleSize/4)}px`;
+        ripple.style.top = `${top-(circleSize/4)}px`;
+        ripple.style.width = `${circleSize/2}px`;
+        ripple.style.height = `${circleSize/2}px`;
+        ripple.classList.remove('hidden');
+        ripple.classList.add('animate-ripple');
 
-      // Remove ripple effect after animation
-      setTimeout(() => {
-        ripple.classList.remove('animate-ripple');
-        ripple.classList.add('hidden');
-      }, 600);
+        setTimeout(() => {
+          ripple.classList.remove('animate-ripple');
+          ripple.classList.add('hidden');
+        }, 600);
+      }
     }
 
-    if (props.onClick) {
-      props.onClick(event);
+    if (onClick) {
+      onClick(event);
     }
   };
 

@@ -1,9 +1,38 @@
-"use client";
+import * as React from 'react';
+import { ChevronDown, X } from 'lucide-react';
 
-import { useState, useEffect, useRef, useMemo } from "react";
-import { ChevronDown, X } from "lucide-react";
+interface Option {
+  value: string;
+  label: string;
+}
 
-const sizeClasses = {
+interface SizeClasses {
+  [key: string]: string;
+}
+
+interface ColorClasses {
+  [key: string]: string;
+}
+
+interface SelectProps {
+  options?: Option[];
+  placeholder?: string;
+  multiple?: boolean;
+  onChange?: (selectedOptions: Option | Option[]) => void;
+  label?: string;
+  size?: keyof SizeClasses;
+  color?: keyof ColorClasses;
+  required?: boolean;
+  className?: string;
+  wrapperClass?: string;
+  labelClass?: string;
+  labelTextClass?: string;
+  sx?: React.CSSProperties;
+  renderOption?: (option: Option) => React.ReactNode;
+  hideSearch?: boolean;
+}
+
+const sizeClasses: SizeClasses = {
   xs: "text-xs",
   s: "text-sm",
   m: "text-base",
@@ -11,7 +40,7 @@ const sizeClasses = {
   xl: "text-xl",
 };
 
-const colorClasses = {
+const colorClasses: ColorClasses = {
   primary: "border-primary focus:border-primary",
   secondary: "border-secondary focus:border-secondary",
   success: "border-success focus:border-success",
@@ -23,7 +52,7 @@ const colorClasses = {
 const baseClasses =
   "w-full border rounded-md transition-all duration-200 focus:shadow-lg bg-base-200 border-base-300";
 
-function Select({
+const Select: React.FC<SelectProps> = ({
   options = [],
   placeholder = "Select an option",
   multiple = false,
@@ -32,22 +61,21 @@ function Select({
   size = "m",
   color,
   required,
-  className,
-  wrapperClass,
-  labelClass,
-  labelTextClass,
+  className = "",
+  wrapperClass = "",
+  labelClass = "",
+  labelTextClass = "",
   sx,
   renderOption,
   hideSearch = false,
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [focusedIndex, setFocusedIndex] = useState(-1);
-  const selectRef = useRef(null);
+}) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [selectedOptions, setSelectedOptions] = React.useState<Option[]>([]);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [focusedIndex, setFocusedIndex] = React.useState(-1);
+  const selectRef = React.useRef<HTMLDivElement>(null);
 
-  // Filtered options with memoization
-  const filteredOptions = useMemo(
+  const filteredOptions = React.useMemo(
     () =>
       options.filter((option) =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
@@ -55,8 +83,7 @@ function Select({
     [options, searchTerm]
   );
 
-  // Toggle selected option
-  const toggleOption = (option) => {
+  const toggleOption = (option: Option) => {
     if (multiple) {
       const updatedSelection = selectedOptions.includes(option)
         ? selectedOptions.filter((item) => item !== option)
@@ -74,8 +101,7 @@ function Select({
     }
   };
 
-  // Remove selected option
-  const removeOption = (option) => {
+  const removeOption = (option: Option) => {
     const updatedSelection = selectedOptions.filter((item) => item !== option);
     setSelectedOptions(updatedSelection);
     if (onChange) {
@@ -83,10 +109,9 @@ function Select({
     }
   };
 
-  // Handle outside click
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (selectRef.current && !selectRef.current.contains(event.target)) {
+  React.useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -95,8 +120,7 @@ function Select({
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  // Handle keyboard navigation
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!isOpen) return;
 
     if (e.key === "ArrowDown") {
@@ -110,7 +134,7 @@ function Select({
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isOpen) {
       setFocusedIndex(-1);
     }
@@ -126,7 +150,7 @@ function Select({
         )}
         <div
           className={`relative w-full ${baseClasses} ${sizeClasses[size]} ${
-            colorClasses[color]
+            color ? colorClasses[color] : ''
           } ${className}`}
           ref={selectRef}
           onKeyDown={handleKeyDown}
@@ -199,3 +223,4 @@ function Select({
 };
 
 export default Select;
+
