@@ -1,91 +1,44 @@
-# Sample React Component Library
+# Knox-UI React Component Library
 
-This project is a sample React component library that demonstrates basic setup for a web application using React, Next.js, and custom UI components.
+[![npm version](https://img.shields.io/npm/v/knoxui-react.svg)](https://www.npmjs.com/package/knoxui-react)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/CoderKnox/knoxui-react/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-97.8%25-blue)](https://github.com/CoderKnox/knoxui-react)
 
-## Features
+Knox-UI is a corporate-focused React component library that provides a comprehensive set of UI components for building sleek and efficient user interfaces. Built with TypeScript and styled with Tailwind CSS, it offers a modern, customizable, and accessible component system.
 
-- Custom React components including Button, Checkbox, Radio, Select, Input, Textarea, Table, and PivotTable
-- Theme provider for easy theme switching
-- Responsive design with Tailwind CSS
-- Next.js integration for server-side rendering and routing
-- TypeScript support for type safety
+## 🌟 Features
 
-## Prerequisites
+- **Rich Component Library**: Includes essential UI components:
+  - Button with various styles and states
+  - Form components (Input, Textarea, Select)
+  - Data display (Table, PivotTable)
+  - Form controls (Checkbox, Radio)
+  - And more...
 
-Before you begin, ensure you have met the following requirements:
+- **Theme Customization**:
+  - Built-in light and dark mode support
+  - Customizable color schemes
+  - CSS variables for easy theming
+  - Tailwind CSS integration
 
-- You have installed the latest version of Node.js and npm
-- You have a `<Windows/Linux/Mac>` machine. (All OSes are supported)
+- **TypeScript Support**:
+  - Full TypeScript support
+  - Type definitions included
+  - Excellent IDE integration
 
-## Installing Sample React Component Library
+- **Modern Development**:
+  - React 18+ compatible
+  - Server Component ready
+  - Next.js 13+ support
 
-You can install this package using npm:
+## 📦 Installation
 
-```
+```bash
+# Using npm
 npm install knoxui-react
-```
 
-Or using yarn:
-
-```
+# Using yarn
 yarn add knoxui-react
-```
 
-## Using 
-
-Here's a quick example of how to use components from this library:
-
-```jsx
-import React from 'react';
-import { Button, Input, ThemeProvider } from 'your-package-name';
-
-function App() {
-  return (
-    <ThemeProvider>
-      <div>
-        <h1>My App</h1>
-        <Input label="Username" />
-        <Button>Click me</Button>
-      </div>
-    </ThemeProvider>
-  );
-}
-
-export default App;
-```
-
-## Components
-
-This library includes the following components:
-
-- `Button`: A customizable button component with various styles and sizes.
-- `Checkbox`: A checkbox input component with label support.
-- `Radio`: A radio input component with label and button style options.
-- `Select`: A customizable select component with search and multi-select capabilities.
-- `Input`: A text input component with various styles and sizes.
-- `Textarea`: A textarea component for multi-line text input.
-- `Table`: A feature-rich table component with sorting, filtering, and export options.
-- `PivotTable`: An interactive pivot table component for data analysis.
-- `ThemeProvider`: A context provider for managing theme across the application.
-
-
-## Documentation
-
-For detailed documentation on each component and its props, please visit our [documentation site](https://knoxui.in).
-
-## Contributing to Sample React Component Library
-
-To contribute to Sample React Component Library, follow these steps:
-
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
-
-Alternatively, see the GitHub documentation on [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+# Using pnpm
+pnpm add knoxui-react

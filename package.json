@@ -1,11 +1,15 @@
 {
   "name": "knoxui-react",
-  "version": "1.0.0",
-  "description": "A simple React UI kit",
+  "version": "1.0.1",
+  "description": "KnoxUI is a corporate-focused React component library.",
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CoderKnox/knoxui-react.git"
+  },
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build"
@@ -14,7 +18,17 @@
     "react",
     "ui",
     "components",
-    "button"
+    "button",
+    "checkbox",
+    "radio",
+    "input",
+    "textarea",
+    "select",
+    "table",
+    "pivot-table",
+    "theme-provider",
+    "responsive",
+    "corporate"
   ],
   "author": "Knox Coder",
   "license": "MIT",
