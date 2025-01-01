@@ -1,6 +1,7 @@
 {
   "name": "knoxui-react",
   "version": "1.0.1",
+  "homepage": "https://www.knoxui.in",
   "description": "KnoxUI is a corporate-focused React component library.",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -30,7 +31,7 @@
     "responsive",
     "corporate"
   ],
-  "author": "Knox Coder",
+  "author": "Coder Knox",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16.8.0",

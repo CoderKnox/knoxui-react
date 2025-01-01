@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import * as React from 'react';
+import React__default from 'react';
 
 declare const sizeClasses$6: {
     readonly xs: "px-2 py-0.5 text-xs";
@@ -23,7 +24,7 @@ declare const clickEffects: {
 type ButtonSize = keyof typeof sizeClasses$6;
 type ButtonColor = keyof typeof colorClasses$6;
 type ButtonClickEffect = keyof typeof clickEffects;
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React__default.ButtonHTMLAttributes<HTMLButtonElement> {
     size?: ButtonSize;
     color?: ButtonColor;
     clickEffect?: ButtonClickEffect;
@@ -31,7 +32,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
 }
 
-declare const Button: React.FC<ButtonProps>;
+declare const Button: React__default.FC<ButtonProps>;
 
 declare const sizeClasses$5: {
     readonly xs: "p-0.5 text-xs";
@@ -50,16 +51,16 @@ declare const colorClasses$5: {
 };
 type RadioSize$1 = keyof typeof sizeClasses$5;
 type RadioColor$1 = keyof typeof colorClasses$5;
-interface RadioProps$1 extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface RadioProps$1 extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     checked?: boolean;
     size?: RadioSize$1;
     color?: RadioColor$1;
     label?: string;
     wrapperClass?: string;
-    sx?: React.CSSProperties;
+    sx?: React__default.CSSProperties;
     isButton?: boolean;
 }
-declare const Radio: React.FC<RadioProps$1>;
+declare const Radio: React__default.FC<RadioProps$1>;
 
 declare const colorClasses$4: {
     readonly primary: "border-primary outline-primary accent-primary";
@@ -78,16 +79,16 @@ declare const sizeClasses$4: {
 };
 type CheckboxSize = keyof typeof sizeClasses$4;
 type CheckboxColor = keyof typeof colorClasses$4;
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface CheckboxProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     checked?: boolean;
     size?: CheckboxSize;
     color?: CheckboxColor;
     label?: string;
     wrapperClass?: string;
-    sx?: React.CSSProperties;
+    sx?: React__default.CSSProperties;
 }
 
-declare const Checkbox: React.FC<CheckboxProps>;
+declare const Checkbox: React__default.FC<CheckboxProps>;
 
 declare const sizeClasses$3: {
     readonly xs: "p-0.5 text-xs";
@@ -106,17 +107,17 @@ declare const colorClasses$3: {
 };
 type InputSize = keyof typeof sizeClasses$3;
 type InputColor = keyof typeof colorClasses$3;
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     label?: string;
     size?: InputSize;
     color?: InputColor;
     wrapperClass?: string;
     labelClass?: string;
     labelTextClass?: string;
-    sx?: React.CSSProperties;
+    sx?: React__default.CSSProperties;
 }
 
-declare const Input: React.FC<InputProps>;
+declare const Input: React__default.FC<InputProps>;
 
 declare const sizeClasses$2: {
     readonly xs: "p-0.5 text-xs";
@@ -135,7 +136,7 @@ declare const colorClasses$2: {
 };
 type TextareaSize = keyof typeof sizeClasses$2;
 type TextareaColor = keyof typeof colorClasses$2;
-interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
+interface TextareaProps extends Omit<React__default.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
     label?: string;
     size?: TextareaSize;
     color?: TextareaColor;
@@ -143,10 +144,10 @@ interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaEl
     wrapperClass?: string;
     labelClass?: string;
     labelTextClass?: string;
-    sx?: React.CSSProperties;
+    sx?: React__default.CSSProperties;
 }
 
-declare const Textarea: React.FC<TextareaProps>;
+declare const Textarea: React__default.FC<TextareaProps>;
 
 declare const sizeClasses$1: {
     readonly xs: "text-xs";
@@ -182,12 +183,12 @@ interface SelectProps {
     wrapperClass?: string;
     labelClass?: string;
     labelTextClass?: string;
-    sx?: React.CSSProperties;
-    renderOption?: (option: Option) => React.ReactNode;
+    sx?: React__default.CSSProperties;
+    renderOption?: (option: Option) => React__default.ReactNode;
     hideSearch?: boolean;
 }
 
-declare const Select: React.FC<SelectProps>;
+declare const Select: React__default.FC<SelectProps>;
 
 interface Column {
     key: string;
@@ -214,7 +215,7 @@ interface SortConfig {
     direction: 'asc' | 'desc' | null;
 }
 
-declare const Table: React.FC<TableProps>;
+declare const Table: React__default.FC<TableProps>;
 
 interface DataItem {
     [key: string]: any;
@@ -223,10 +224,10 @@ interface PivotTableProps {
     initialData: DataItem[];
 }
 
-declare const PivotTable: React.FC<PivotTableProps>;
+declare const PivotTable: React__default.FC<PivotTableProps>;
 
 interface ThemeProviderProps {
-    children: ReactNode;
+    children: React.ReactNode;
 }
 declare const ThemeProvider: React.FC<ThemeProviderProps>;
 
@@ -247,13 +248,13 @@ declare const colorClasses: {
 };
 type RadioSize = keyof typeof sizeClasses;
 type RadioColor = keyof typeof colorClasses;
-interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface RadioProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     checked?: boolean;
     size?: RadioSize;
     color?: RadioColor;
     label?: string;
     wrapperClass?: string;
-    sx?: React.CSSProperties;
+    sx?: React__default.CSSProperties;
     isButton?: boolean;
 }
 

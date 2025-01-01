@@ -2,4 +2,4 @@ src
 .gitignore
 .babelrc
 tsconfig.json
-test/
+knoxui
