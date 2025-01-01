@@ -31,6 +31,21 @@ Knox-UI is a corporate-focused React component library that provides a comprehen
   - Server Component ready
   - Next.js 13+ support
 
+## 👍 Updates
+
+- Add Tailwind CSS configuration.
+
+```bash
+# layout.js or app.js
+import 'knoxui-react/dist/styles.css';
+```
+
+## 🚀 Usage
+
+```bash
+npm install knoxui-react
+```
+
 ## 📦 Installation
 
 ```bash

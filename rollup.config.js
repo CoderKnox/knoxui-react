@@ -35,17 +35,16 @@ const config = [
       }),
       postcss({
         config: {
-          path: './postcss.config.js',
+          path: './postcss.config.cjs',
         },
         extensions: ['.css'],
         minimize: true,
-        inject: {
-          insertAt: 'top',
-        },
+        extract: 'styles.css',
+        modules: false,
       }),
       terser(),
     ],
-    external: ['react', 'react-dom', 'jspdf', 'xlsx', 'lucide-react'],
+    external: ['react', 'react-dom', 'jspdf', 'xlsx'],
   },
   {
     input: 'src/index.ts',
