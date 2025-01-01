@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import { ArrowDownToLine, Printer } from 'lucide-react';
-import { utils as XLSXUtils, writeFile } from "xlsx";
 import "jspdf-autotable";
 import { useSortableData } from '../hooks/useSortableData';
 import { useFilterableData } from '../hooks/useFilterableData';
@@ -8,34 +7,9 @@ import { useDraggableColumns } from '../hooks/useDraggableColumns';
 import { formatDate, formatCurrency, formatNumber } from '../utils/formatters';
 import { exportToExcel, exportToPDF } from '../utils/exportHelpers';
 import { sumBy } from '../utils/dataManipulation';
+import { TableProps, Column, TableSize } from '../types/TableProps';
 
-interface SizeClasses {
-  [key: string]: string;
-}
-
-interface Column {
-  key: string;
-  header: string;
-  dataType?: string;
-  sum?: boolean;
-}
-
-interface TableConfig {
-  data: any[];
-  columns: Column[];
-}
-
-interface TableProps {
-  tableConfig: TableConfig;
-  isSerialized?: boolean;
-  size?: keyof SizeClasses;
-  header?: boolean;
-  title?: string;
-  printSize?: string;
-  sum?: boolean;
-}
-
-const sizeClasses: SizeClasses = {
+const sizeClasses: Record<TableSize, string> = {
   xs: "text-xs [&>_tbody>*_td]:p-0.5 [&>_tbody>*_th]:p-0.5",
   s: "text-sm [&>_tbody>*_td]:p-1   [&>_tbody>*_th]:p-1 ",
   m: "text-base [&>_tbody>*_td]:p-1.5 [&>_tbody>*_th]:p-1.5",
@@ -207,12 +181,12 @@ const Table: React.FC<TableProps> = ({
 
                 let formattedValue = value;
 
-                if (column.dataType === 'date') {
+                if (column.dataType === 'date' || column.dataType === 'datetime') {
                   formattedValue = formatDate(value);
                 } else if (column.dataType === 'currency') {
-                  formattedValue = formatCurrency(value);
-                } else if (column.dataType === 'number') {
-                  formattedValue = formatNumber(value);
+                  formattedValue = formatCurrency(Number(value));
+                } else if (column.dataType === 'int' || column.dataType === 'float') {
+                  formattedValue = formatNumber(Number(value));
                 }
 
                 return (

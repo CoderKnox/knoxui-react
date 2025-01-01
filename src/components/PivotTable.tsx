@@ -1,16 +1,9 @@
-import * as React from 'react';
+import React, { useState, useMemo } from 'react';
 import { FileDown } from 'lucide-react';
 import Button from "./Button";
 import Radio from "./Radio";
 import Input from "./Input";
-
-interface DataItem {
-  [key: string]: any;
-}
-
-interface PivotTableProps {
-  initialData: DataItem[];
-}
+import { PivotTableProps, DataItem } from '../types/PivotTableProps';
 
 export const PivotTable: React.FC<PivotTableProps> = ({ initialData }) => {
   const sortData = (data: DataItem[], fields: string[]): DataItem[] => {
@@ -23,13 +16,13 @@ export const PivotTable: React.FC<PivotTableProps> = ({ initialData }) => {
     });
   };
 
-  const [data] = React.useState<DataItem[]>(initialData);
-  const [values, setValues] = React.useState<string[]>([]);
-  const [rows, setRows] = React.useState<string[]>([]);
-  const [columns, setColumns] = React.useState<string[]>([]);
-  const [aggregationType, setAggregationType] = React.useState<"sum" | "count">("sum");
-  const [draggedValue, setDraggedValue] = React.useState<string | null>(null);
-  const [swapValueColumns, setSwapValueColumns] = React.useState<boolean>(false);
+  const [data] = useState<DataItem[]>(initialData);
+  const [values, setValues] = useState<string[]>([]);
+  const [rows, setRows] = useState<string[]>([]);
+  const [columns, setColumns] = useState<string[]>([]);
+  const [aggregationType, setAggregationType] = useState<"sum" | "count">("sum");
+  const [draggedValue, setDraggedValue] = useState<string | null>(null);
+  const [swapValueColumns, setSwapValueColumns] = useState<boolean>(false);
 
   const availableFields = React.useMemo(() => {
     const selectedFields = [...values, ...rows, ...columns];

@@ -1,19 +1,20 @@
 import { useState } from 'react';
+import { Column } from '../types/TableProps';
 
-export function useDraggableColumns<T>(initialColumns: T[]) {
-  const [columns, setColumns] = useState<T[]>(initialColumns);
+export const useDraggableColumns = (initialColumns: Column[]) => {
+  const [columns, setColumns] = useState<Column[]>(initialColumns);
 
-  const handleDragStart = (index: number) => (event: React.DragEvent<HTMLElement>) => {
-    event.dataTransfer.setData('text/plain', index.toString());
+  const handleDragStart = (index: number) => (e: React.DragEvent<HTMLTableHeaderCellElement>) => {
+    e.dataTransfer.setData('text/plain', index.toString());
   };
 
-  const handleDragOver = (event: React.DragEvent<HTMLElement>) => {
-    event.preventDefault();
+  const handleDragOver = (e: React.DragEvent<HTMLTableHeaderCellElement>) => {
+    e.preventDefault();
   };
 
-  const handleDrop = (targetIndex: number) => (event: React.DragEvent<HTMLElement>) => {
-    event.preventDefault();
-    const sourceIndex = parseInt(event.dataTransfer.getData('text/plain'), 10);
+  const handleDrop = (targetIndex: number) => (e: React.DragEvent<HTMLTableHeaderCellElement>) => {
+    e.preventDefault();
+    const sourceIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
     if (sourceIndex !== targetIndex) {
       const newColumns = [...columns];
       const [removed] = newColumns.splice(sourceIndex, 1);
@@ -23,5 +24,5 @@ export function useDraggableColumns<T>(initialColumns: T[]) {
   };
 
   return { columns, handleDragStart, handleDragOver, handleDrop };
-}
+};
 

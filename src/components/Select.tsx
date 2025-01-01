@@ -1,56 +1,6 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { SelectProps, Option, sizeClasses, colorClasses, baseClasses } from '../types/SelectProps';
 import { ChevronDown, X } from 'lucide-react';
-
-interface Option {
-  value: string;
-  label: string;
-}
-
-interface SizeClasses {
-  [key: string]: string;
-}
-
-interface ColorClasses {
-  [key: string]: string;
-}
-
-interface SelectProps {
-  options?: Option[];
-  placeholder?: string;
-  multiple?: boolean;
-  onChange?: (selectedOptions: Option | Option[]) => void;
-  label?: string;
-  size?: keyof SizeClasses;
-  color?: keyof ColorClasses;
-  required?: boolean;
-  className?: string;
-  wrapperClass?: string;
-  labelClass?: string;
-  labelTextClass?: string;
-  sx?: React.CSSProperties;
-  renderOption?: (option: Option) => React.ReactNode;
-  hideSearch?: boolean;
-}
-
-const sizeClasses: SizeClasses = {
-  xs: "text-xs",
-  s: "text-sm",
-  m: "text-base",
-  l: "text-lg",
-  xl: "text-xl",
-};
-
-const colorClasses: ColorClasses = {
-  primary: "border-primary focus:border-primary",
-  secondary: "border-secondary focus:border-secondary",
-  success: "border-success focus:border-success",
-  warning: "border-warning focus:border-warning",
-  error: "border-error focus:border-error",
-  ghost: "border-ghost focus:border-base-300",
-};
-
-const baseClasses =
-  "w-full border rounded-md transition-all duration-200 focus:shadow-lg bg-base-200 border-base-300";
 
 const Select: React.FC<SelectProps> = ({
   options = [],
@@ -59,23 +9,23 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   label,
   size = "m",
-  color,
+  color="primary",
   required,
-  className = "",
-  wrapperClass = "",
-  labelClass = "",
-  labelTextClass = "",
+  className = '',
+  wrapperClass = '',
+  labelClass = '',
+  labelTextClass = '',
   sx,
   renderOption,
   hideSearch = false,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedOptions, setSelectedOptions] = React.useState<Option[]>([]);
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [focusedIndex, setFocusedIndex] = React.useState(-1);
-  const selectRef = React.useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const selectRef = useRef<HTMLDivElement>(null);
 
-  const filteredOptions = React.useMemo(
+  const filteredOptions = useMemo(
     () =>
       options.filter((option) =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
@@ -109,7 +59,7 @@ const Select: React.FC<SelectProps> = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -134,7 +84,7 @@ const Select: React.FC<SelectProps> = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       setFocusedIndex(-1);
     }
@@ -150,7 +100,7 @@ const Select: React.FC<SelectProps> = ({
         )}
         <div
           className={`relative w-full ${baseClasses} ${sizeClasses[size]} ${
-            color ? colorClasses[color] : ''
+            colorClasses[color]
           } ${className}`}
           ref={selectRef}
           onKeyDown={handleKeyDown}
@@ -165,7 +115,7 @@ const Select: React.FC<SelectProps> = ({
                 multiple ? (
                   selectedOptions.map((option) => (
                     <span
-                      key={option.value}
+                      key={option.value.toString()}
                       className="px-2 py-1 text-sm bg-gray-200 rounded-md flex items-center"
                     >
                       {option.label}
@@ -204,7 +154,7 @@ const Select: React.FC<SelectProps> = ({
               <ul className="max-h-60 overflow-auto">
                 {filteredOptions.map((option, index) => (
                   <li
-                    key={option.value}
+                    key={option.value.toString()}
                     className={`p-2 cursor-pointer hover:bg-base-200 ${
                       selectedOptions.includes(option) ? "bg-base-300" : ""
                     } ${focusedIndex === index ? "bg-base-300" : ""}`}

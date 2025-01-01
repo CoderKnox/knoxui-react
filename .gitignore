@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/old
+/test
 /dist
 /.npm
 /.pnp
