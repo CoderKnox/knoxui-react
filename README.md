@@ -31,13 +31,16 @@ Knox-UI is a corporate-focused React component library that provides a comprehen
   - Server Component ready
   - Next.js 13+ support
 
-## 👍 Updates
+## 🆕 Updates
 
-- Add Tailwind CSS configuration.
+- Add new hook useTheme.
 
-```bash
-# layout.js or app.js
-import 'knoxui-react/dist/styles.css';
+```js
+const { theme, toggleTheme } = useTheme();
+
+<Button onClick={toggleTheme} color="primary">
+  Toggle Theme
+</Button>
 ```
 
 ## 🚀 Usage
@@ -57,3 +60,9 @@ yarn add knoxui-react
 
 # Using pnpm
 pnpm add knoxui-react
+```
+
+```js
+// layout.js or app.js
+import 'knoxui-react/dist/styles.css';
+```

@@ -9,6 +9,7 @@ export { default as Select } from './components/Select';
 export { default as Table } from './components/Table';
 export { default as PivotTable } from './components/PivotTable';
 export { default as ThemeProvider } from './components/ThemeProvider';
+export { useTheme } from './components/ThemeProvider';
 
 export type { ButtonProps, ButtonSize, ButtonColor, ButtonClickEffect } from './types/ButtonProps';
 export type { RadioProps, RadioSize, RadioColor } from './types/RadioProps';
