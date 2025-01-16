@@ -226,6 +226,11 @@ interface PivotTableProps {
 
 declare const PivotTable: React__default.FC<PivotTableProps>;
 
+interface ThemeContextType {
+    theme: 'light' | 'dark';
+    toggleTheme: () => void;
+}
+declare const useTheme: () => ThemeContextType;
 interface ThemeProviderProps {
     children: React.ReactNode;
 }
@@ -258,4 +263,4 @@ interface RadioProps extends Omit<React__default.InputHTMLAttributes<HTMLInputEl
     isButton?: boolean;
 }
 
-export { Button, type ButtonClickEffect, type ButtonColor, type ButtonProps, type ButtonSize, Checkbox, type CheckboxColor, type CheckboxProps, type CheckboxSize, type Column, type DataItem, Input, type InputColor, type InputProps, type InputSize, type Option, PivotTable, type PivotTableProps, Radio, type RadioColor, type RadioProps, type RadioSize, Select, type SelectColor, type SelectProps, type SelectSize, type SortConfig, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaColor, type TextareaProps, type TextareaSize, ThemeProvider };
+export { Button, type ButtonClickEffect, type ButtonColor, type ButtonProps, type ButtonSize, Checkbox, type CheckboxColor, type CheckboxProps, type CheckboxSize, type Column, type DataItem, Input, type InputColor, type InputProps, type InputSize, type Option, PivotTable, type PivotTableProps, Radio, type RadioColor, type RadioProps, type RadioSize, Select, type SelectColor, type SelectProps, type SelectSize, type SortConfig, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaColor, type TextareaProps, type TextareaSize, ThemeProvider, useTheme };

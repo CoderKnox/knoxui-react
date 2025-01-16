@@ -1,12 +1,12 @@
 import React from 'react';
 
 export const colorClasses = {
-  primary: 'border-primary outline-primary accent-primary',
+  primary:   'border-primary outline-primary accent-primary',
   secondary: 'border-secondary outline-secondary accent-secondary',
-  success: 'border-success outline-success accent-success',
-  warning: 'border-warning outline-warning accent-warning',
-  error: 'border-error outline-error accent-error',
-  ghost: 'border-ghost focus:border-base-300 outline-none',
+  success:   'border-success outline-success accent-success',
+  warning:   'border-warning outline-warning accent-warning',
+  error:     'border-error outline-error accent-error',
+  ghost:     'border-ghost focus:border-base-300 outline-none',
 } as const;
 
 export const baseClasses = 'w-full border rounded-md transition-all duration-200 focus:shadow-lg bg-base-200 border-base-300 flex';

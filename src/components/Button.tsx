@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   ...props
 }) => {
-  const baseClasses = `font-semibold rounded-md transition-colors duration-400 h-min select-none border duration-200 transition-all hover:shadow-lg focus:shadow-lg ${disabled && 'opacity-90 cursor-not-allowed'} ${className}`;
+  const baseClasses = `font-semibold rounded-md transition-colors duration-400 h-min select-none border duration-200 transition-all hover:shadow-lg ${color!=='ghost' ? 'focus:shadow-lg' : ''} ${disabled && 'opacity-90 cursor-not-allowed'} ${className}`;
   const sizeClass = sizeClasses[size];
   const colorClass = colorClasses[color];
   const effectClass = clickEffects[clickEffect];

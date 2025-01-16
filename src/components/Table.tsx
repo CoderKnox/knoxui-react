@@ -11,9 +11,9 @@ import { TableProps, Column, TableSize } from '../types/TableProps';
 
 const sizeClasses: Record<TableSize, string> = {
   xs: "text-xs [&>_tbody>*_td]:p-0.5 [&>_tbody>*_th]:p-0.5",
-  s: "text-sm [&>_tbody>*_td]:p-1   [&>_tbody>*_th]:p-1 ",
-  m: "text-base [&>_tbody>*_td]:p-1.5 [&>_tbody>*_th]:p-1.5",
-  l: "text-lg [&>_tbody>*_td]:p-2   [&>_tbody>*_th]:p-2 ",
+  s:  "text-sm [&>_tbody>*_td]:p-1 [&>_tbody>*_th]:p-1 ",
+  m:  "text-base [&>_tbody>*_td]:p-1.5 [&>_tbody>*_th]:p-1.5",
+  l:  "text-lg [&>_tbody>*_td]:p-2 [&>_tbody>*_th]:p-2 ",
   xl: "text-xl [&>_tbody>*_td]:p-2.5 [&>_tbody>*_th]:p-2.5",
 };
 

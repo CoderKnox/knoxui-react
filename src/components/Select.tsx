@@ -106,17 +106,14 @@ const Select: React.FC<SelectProps> = ({
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
-          <div
-            className="flex items-center justify-between w-full p-2 cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <div className="flex items-center justify-between w-full p-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
             <div className="flex flex-wrap gap-1">
               {selectedOptions.length > 0 ? (
                 multiple ? (
                   selectedOptions.map((option) => (
                     <span
                       key={option.value.toString()}
-                      className="px-2 py-1 text-sm bg-gray-200 rounded-md flex items-center"
+                      className="px-2 py-1 text-sm bg-base-100 rounded-md flex items-center"
                     >
                       {option.label}
                       <X

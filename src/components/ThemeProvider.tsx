@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 interface ThemeContextType {
-  theme: 'light' | 'dark';
-  toggleTheme: () => void;
+  theme: string;
+  setTheme: (theme: string) => void;
 }
 
 const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
@@ -17,29 +17,38 @@ export const useTheme = (): ThemeContextType => {
 
 interface ThemeProviderProps {
   children: React.ReactNode;
+  attribute?: string;
+  defaultTheme?: string;
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
-
-  const toggleTheme = React.useCallback(() => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.classList.toggle('dark', newTheme === 'dark');
-      return newTheme;
-    });
-  }, []);
+const ThemeProvider: React.FC<ThemeProviderProps> = ({
+  children,
+  attribute = 'class',
+  defaultTheme = 'system'
+}) => {
+  const [theme, setThemeState] = React.useState<string>(defaultTheme);
 
   React.useEffect(() => {
-    // Initialize theme based on system preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    if (attribute === 'class') {
+      root.classList.add(theme);
+    } else {
+      root.setAttribute(attribute, theme);
     }
+  }, [theme, attribute]);
+
+  const setTheme = React.useCallback((newTheme: string) => {
+    setThemeState(newTheme);
   }, []);
 
+  const contextValue = React.useMemo(() => ({
+    theme,
+    setTheme,
+  }), [theme, setTheme]);
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );

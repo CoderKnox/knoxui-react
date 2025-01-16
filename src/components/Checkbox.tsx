@@ -29,7 +29,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
             className={`${colorClasses[color]} ${className}`}
             {...props}
           />
-          <span className="ml-2">{label}</span>
+          {label && <span className="ml-2">{label}</span>}
         </label>
       </div>
     );
