@@ -1,5 +1,5 @@
-import * as React from 'react';
-import React__default from 'react';
+import * as React$1 from 'react';
+import React__default, { ReactNode } from 'react';
 
 declare const sizeClasses$5: {
     readonly xs: "px-2 py-0.5 text-xs";
@@ -191,6 +191,16 @@ interface SelectProps {
 
 declare const Select: React__default.FC<SelectProps>;
 
+interface Tab {
+    label: string;
+    content: React.ReactNode;
+}
+
+interface TabBarProps {
+    tabs: Tab[];
+}
+declare const TabBar: React__default.FC<TabBarProps>;
+
 interface Column {
     key: string;
     header: string;
@@ -235,10 +245,26 @@ interface ThemeContextType {
 }
 declare const useTheme: () => ThemeContextType;
 interface ThemeProviderProps {
-    children: React.ReactNode;
+    children: React$1.ReactNode;
     attribute?: string;
     defaultTheme?: string;
 }
-declare const ThemeProvider: React.FC<ThemeProviderProps>;
+declare const ThemeProvider: React$1.FC<ThemeProviderProps>;
 
-export { Button, type ButtonClickEffect, type ButtonProps, type ButtonSize, type ButtonVariant, Checkbox, type CheckboxProps, type CheckboxSize, type CheckboxVariant, type Column, type DataItem, Input, type InputProps, type InputSize, type InputVariant, type Option, PivotTable, type PivotTableProps, Radio, type RadioProps, type RadioSize, type RadioVariant, Select, type SelectProps, type SelectSize, type SelectVariant, type SortConfig, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaProps, type TextareaSize, type TextareaVariant, ThemeProvider, useTheme };
+interface DropdownItem {
+    label: string;
+    href?: string;
+    icon?: ReactNode;
+    children?: DropdownItem[];
+}
+interface DropdownProps {
+    items: DropdownItem[];
+    label: string;
+    variant?: "primary" | "secondary" | "success" | "warning" | "error" | "ghost";
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    className?: string;
+}
+
+declare const Dropdown: React__default.FC<DropdownProps>;
+
+export { Button, type ButtonClickEffect, type ButtonProps, type ButtonSize, type ButtonVariant, Checkbox, type CheckboxProps, type CheckboxSize, type CheckboxVariant, type Column, type DataItem, Dropdown, type DropdownItem, type DropdownProps, Input, type InputProps, type InputSize, type InputVariant, type Option, PivotTable, type PivotTableProps, Radio, type RadioProps, type RadioSize, type RadioVariant, Select, type SelectProps, type SelectSize, type SelectVariant, type SortConfig, type Tab, TabBar, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaProps, type TextareaSize, type TextareaVariant, ThemeProvider, useTheme };
