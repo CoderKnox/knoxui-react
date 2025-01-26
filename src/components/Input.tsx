@@ -1,16 +1,17 @@
-import React from 'react';
-import { InputProps, sizeClasses, colorClasses, baseClasses } from '../types/InputProps';
+import React from "react"
+import { type InputProps, sizeClasses, variantClasses, baseClasses } from "../types/InputProps"
+
 
 const Input: React.FC<InputProps> = ({
   label,
-  size = 'm',
-  color = 'primary',
-  type = 'text',
+  size = "md",
+  variant = "primary",
+  type = "text",
   required,
-  className = '',
-  wrapperClass = '',
-  labelClass = '',
-  labelTextClass = '',
+  className = "",
+  wrapperClass = "",
+  labelClass = "",
+  labelTextClass = "",
   sx,
   ...props
 }) => {
@@ -19,19 +20,19 @@ const Input: React.FC<InputProps> = ({
       <label className={`flex flex-col items-start ${labelClass}`}>
         {label && (
           <span className={`text-sm px-0.5 ${labelTextClass}`}>
-            {label} {required && <span className='text-error'>*</span>}
+            {label} {required && <span className="text-error">*</span>}
           </span>
         )}
-        <input 
+        <input
           type={type}
-          className={`${baseClasses} ${sizeClasses[size]} ${colorClasses[color]} ${className}`} 
+          className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
           required={required}
-          {...props} 
+          {...props}
         />
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input
 

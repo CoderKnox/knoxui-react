@@ -1,14 +1,14 @@
 import * as React from 'react';
 import React__default from 'react';
 
-declare const sizeClasses$6: {
+declare const sizeClasses$5: {
     readonly xs: "px-2 py-0.5 text-xs";
-    readonly s: "px-3 py-1 text-sm";
-    readonly m: "px-4 py-1.5 text-base";
-    readonly l: "px-5 py-2 text-lg";
+    readonly sm: "px-3 py-1 text-sm";
+    readonly md: "px-4 py-1.5 text-base";
+    readonly lg: "px-5 py-2 text-lg";
     readonly xl: "px-6 py-2.5 text-xl";
 };
-declare const colorClasses$6: {
+declare const variantClasses$4: {
     readonly primary: "bg-primary border-primary hover:bg-primary/50 text-white";
     readonly secondary: "bg-secondary border-secondary hover:bg-secondary-600 text-white";
     readonly success: "bg-success border-success hover:bg-success-600 text-white";
@@ -21,12 +21,12 @@ declare const clickEffects: {
     readonly push: "transform active:scale-90 transition-transform";
     readonly none: "";
 };
-type ButtonSize = keyof typeof sizeClasses$6;
-type ButtonColor = keyof typeof colorClasses$6;
+type ButtonSize = keyof typeof sizeClasses$5;
+type ButtonVariant = keyof typeof variantClasses$4;
 type ButtonClickEffect = keyof typeof clickEffects;
 interface ButtonProps extends React__default.ButtonHTMLAttributes<HTMLButtonElement> {
     size?: ButtonSize;
-    color?: ButtonColor;
+    variant?: ButtonVariant;
     clickEffect?: ButtonClickEffect;
     isLoading?: boolean;
     className?: string;
@@ -34,35 +34,36 @@ interface ButtonProps extends React__default.ButtonHTMLAttributes<HTMLButtonElem
 
 declare const Button: React__default.FC<ButtonProps>;
 
-declare const sizeClasses$5: {
+declare const sizeClasses$4: {
     readonly xs: "p-0.5 text-xs";
-    readonly s: "p-1 text-sm";
-    readonly m: "p-1.5 text-base";
-    readonly l: "p-2 text-lg";
-    readonly xl: "p-3 text-xl";
+    readonly sm: "p-1 text-sm";
+    readonly md: "p-1.5 pl-2 text-base";
+    readonly lg: "p-2 pl-2.5 text-lg";
+    readonly xl: "p-3 pl-4 text-xl";
 };
-declare const colorClasses$5: {
+declare const variantClasses$3: {
     readonly primary: "border-primary outline-primary accent-primary";
     readonly secondary: "border-secondary outline-secondary accent-secondary";
     readonly success: "border-success outline-success accent-success";
     readonly warning: "border-warning outline-warning accent-warning";
     readonly error: "border-error outline-error accent-error";
-    readonly ghost: "border-ghost focus:border-base-300 outline-none";
+    readonly ghost: "focus:outline-none";
 };
-type RadioSize$1 = keyof typeof sizeClasses$5;
-type RadioColor$1 = keyof typeof colorClasses$5;
-interface RadioProps$1 extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+type RadioSize = keyof typeof sizeClasses$4;
+type RadioVariant = keyof typeof variantClasses$3;
+interface RadioProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size"> {
     checked?: boolean;
-    size?: RadioSize$1;
-    color?: RadioColor$1;
+    size?: RadioSize;
+    variant?: RadioVariant;
     label?: string;
     wrapperClass?: string;
     sx?: React__default.CSSProperties;
     isButton?: boolean;
 }
-declare const Radio: React__default.FC<RadioProps$1>;
 
-declare const colorClasses$4: {
+declare const Radio: React__default.FC<RadioProps>;
+
+declare const colorClasses: {
     readonly primary: "border-primary outline-primary accent-primary";
     readonly secondary: "border-secondary outline-secondary accent-secondary";
     readonly success: "border-success outline-success accent-success";
@@ -70,19 +71,19 @@ declare const colorClasses$4: {
     readonly error: "border-error outline-error accent-error";
     readonly ghost: "border-ghost focus:border-base-300 outline-none";
 };
-declare const sizeClasses$4: {
-    readonly xs: "h-3 w-3";
-    readonly s: "h-4 w-4";
-    readonly m: "h-5 w-5";
-    readonly l: "h-6 w-6";
-    readonly xl: "h-7 w-7";
+declare const sizeClasses$3: {
+    readonly xs: "h-3 w-3 text-xs";
+    readonly sm: "h-4 w-4 text-sm";
+    readonly md: "h-5 w-5 text-base";
+    readonly lg: "h-6 w-6 text-lg";
+    readonly xl: "h-7 w-7 text-xl";
 };
-type CheckboxSize = keyof typeof sizeClasses$4;
-type CheckboxColor = keyof typeof colorClasses$4;
-interface CheckboxProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+type CheckboxSize = keyof typeof sizeClasses$3;
+type CheckboxVariant = keyof typeof colorClasses;
+interface CheckboxProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size"> {
     checked?: boolean;
     size?: CheckboxSize;
-    color?: CheckboxColor;
+    variant?: CheckboxVariant;
     label?: string;
     wrapperClass?: string;
     sx?: React__default.CSSProperties;
@@ -90,14 +91,14 @@ interface CheckboxProps extends Omit<React__default.InputHTMLAttributes<HTMLInpu
 
 declare const Checkbox: React__default.FC<CheckboxProps>;
 
-declare const sizeClasses$3: {
+declare const sizeClasses$2: {
     readonly xs: "p-0.5 text-xs";
-    readonly s: "p-1 text-sm";
-    readonly m: "p-1.5 text-base";
-    readonly l: "p-2 text-lg";
+    readonly sm: "p-1 text-sm";
+    readonly md: "p-1.5 text-base";
+    readonly lg: "p-2 text-lg";
     readonly xl: "p-3 text-xl";
 };
-declare const colorClasses$3: {
+declare const variantClasses$2: {
     readonly primary: "border-primary outline-primary";
     readonly secondary: "border-secondary outline-secondary";
     readonly success: "border-success outline-success";
@@ -105,12 +106,12 @@ declare const colorClasses$3: {
     readonly error: "border-error outline-error";
     readonly ghost: "border-ghost focus:border-base-300 outline-none";
 };
-type InputSize = keyof typeof sizeClasses$3;
-type InputColor = keyof typeof colorClasses$3;
-interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+type InputSize = keyof typeof sizeClasses$2;
+type InputVariant = keyof typeof variantClasses$2;
+interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size"> {
     label?: string;
     size?: InputSize;
-    color?: InputColor;
+    variant?: InputVariant;
     wrapperClass?: string;
     labelClass?: string;
     labelTextClass?: string;
@@ -119,14 +120,14 @@ interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputEl
 
 declare const Input: React__default.FC<InputProps>;
 
-declare const sizeClasses$2: {
+declare const sizeClasses$1: {
     readonly xs: "p-0.5 text-xs";
-    readonly s: "p-1 text-sm";
-    readonly m: "p-1.5 text-base";
-    readonly l: "p-2 text-lg";
+    readonly sm: "p-1 text-sm";
+    readonly md: "p-1.5 text-base";
+    readonly lg: "p-2 text-lg";
     readonly xl: "p-3 text-xl";
 };
-declare const colorClasses$2: {
+declare const variantClasses$1: {
     readonly primary: "border-primary outline-primary";
     readonly secondary: "border-secondary outline-secondary";
     readonly success: "border-success outline-success";
@@ -134,12 +135,12 @@ declare const colorClasses$2: {
     readonly error: "border-error outline-error";
     readonly ghost: "border-ghost focus:border-base-300 outline-none";
 };
-type TextareaSize = keyof typeof sizeClasses$2;
-type TextareaColor = keyof typeof colorClasses$2;
-interface TextareaProps extends Omit<React__default.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
+type TextareaSize = keyof typeof sizeClasses$1;
+type TextareaVariant = keyof typeof variantClasses$1;
+interface TextareaProps extends Omit<React__default.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
     label?: string;
     size?: TextareaSize;
-    color?: TextareaColor;
+    variant?: TextareaVariant;
     required?: boolean;
     wrapperClass?: string;
     labelClass?: string;
@@ -149,14 +150,14 @@ interface TextareaProps extends Omit<React__default.TextareaHTMLAttributes<HTMLT
 
 declare const Textarea: React__default.FC<TextareaProps>;
 
-declare const sizeClasses$1: {
+declare const sizeClasses: {
     readonly xs: "text-xs";
-    readonly s: "text-sm";
-    readonly m: "text-base";
-    readonly l: "text-lg";
+    readonly sm: "text-sm";
+    readonly md: "text-base";
+    readonly lg: "text-lg";
     readonly xl: "text-xl";
 };
-declare const colorClasses$1: {
+declare const variantClasses: {
     readonly primary: "border-primary focus:border-primary";
     readonly secondary: "border-secondary focus:border-secondary";
     readonly success: "border-success focus:border-success";
@@ -164,8 +165,8 @@ declare const colorClasses$1: {
     readonly error: "border-error focus:border-error";
     readonly ghost: "border-ghost focus:border-base-300";
 };
-type SelectSize = keyof typeof sizeClasses$1;
-type SelectColor = keyof typeof colorClasses$1;
+type SelectSize = keyof typeof sizeClasses;
+type SelectVariant = keyof typeof variantClasses;
 interface Option {
     value: string | number;
     label: string;
@@ -177,7 +178,7 @@ interface SelectProps {
     onChange?: (selectedOption: Option | Option[]) => void;
     label?: string;
     size?: SelectSize;
-    color?: SelectColor;
+    variant?: SelectVariant;
     required?: boolean;
     className?: string;
     wrapperClass?: string;
@@ -222,45 +223,22 @@ interface DataItem {
 }
 interface PivotTableProps {
     initialData: DataItem[];
+    title?: string;
+    className?: string;
 }
 
 declare const PivotTable: React__default.FC<PivotTableProps>;
 
 interface ThemeContextType {
-    theme: 'light' | 'dark';
-    toggleTheme: () => void;
+    theme: string;
+    setTheme: (theme: string) => void;
 }
 declare const useTheme: () => ThemeContextType;
 interface ThemeProviderProps {
     children: React.ReactNode;
+    attribute?: string;
+    defaultTheme?: string;
 }
 declare const ThemeProvider: React.FC<ThemeProviderProps>;
 
-declare const sizeClasses: {
-    readonly xs: "p-0.5 text-xs";
-    readonly s: "p-1 text-sm";
-    readonly m: "p-1.5 text-base";
-    readonly l: "p-2 text-lg";
-    readonly xl: "p-3 text-xl";
-};
-declare const colorClasses: {
-    readonly primary: "border-primary outline-primary accent-primary";
-    readonly secondary: "border-secondary outline-secondary accent-secondary";
-    readonly success: "border-success outline-success accent-success";
-    readonly warning: "border-warning outline-warning accent-warning";
-    readonly error: "border-error outline-error accent-error";
-    readonly ghost: "border-ghost focus:border-base-300 outline-none";
-};
-type RadioSize = keyof typeof sizeClasses;
-type RadioColor = keyof typeof colorClasses;
-interface RadioProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-    checked?: boolean;
-    size?: RadioSize;
-    color?: RadioColor;
-    label?: string;
-    wrapperClass?: string;
-    sx?: React__default.CSSProperties;
-    isButton?: boolean;
-}
-
-export { Button, type ButtonClickEffect, type ButtonColor, type ButtonProps, type ButtonSize, Checkbox, type CheckboxColor, type CheckboxProps, type CheckboxSize, type Column, type DataItem, Input, type InputColor, type InputProps, type InputSize, type Option, PivotTable, type PivotTableProps, Radio, type RadioColor, type RadioProps, type RadioSize, Select, type SelectColor, type SelectProps, type SelectSize, type SortConfig, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaColor, type TextareaProps, type TextareaSize, ThemeProvider, useTheme };
+export { Button, type ButtonClickEffect, type ButtonProps, type ButtonSize, type ButtonVariant, Checkbox, type CheckboxProps, type CheckboxSize, type CheckboxVariant, type Column, type DataItem, Input, type InputProps, type InputSize, type InputVariant, type Option, PivotTable, type PivotTableProps, Radio, type RadioProps, type RadioSize, type RadioVariant, Select, type SelectProps, type SelectSize, type SelectVariant, type SortConfig, Table, type TableConfig, type TableProps, type TableSize, Textarea, type TextareaProps, type TextareaSize, type TextareaVariant, ThemeProvider, useTheme };

@@ -1,30 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Tab } from '../types/Tab';
+import React from "react"
+import { useState, useRef, useEffect } from "react"
+import type { Tab } from "../types/TabBarProps"
 
 interface TabBarProps {
-  tabs: Tab[];
+  tabs: Tab[]
 }
 
 const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-  const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({});
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [activeTab, setActiveTab] = useState<number>(0)
+  const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({})
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   useEffect(() => {
     const updateIndicator = () => {
-      const currentTab = tabRefs.current[activeTab];
+      const currentTab = tabRefs.current[activeTab]
       if (currentTab) {
         setIndicatorStyle({
           left: `${currentTab.offsetLeft}px`,
           width: `${currentTab.offsetWidth}px`,
-        });
+        })
       }
-    };
+    }
 
-    updateIndicator();
-    window.addEventListener('resize', updateIndicator);
-    return () => window.removeEventListener('resize', updateIndicator);
-  }, [activeTab]);
+    updateIndicator()
+    window.addEventListener("resize", updateIndicator)
+    return () => window.removeEventListener("resize", updateIndicator)
+  }, [activeTab])
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -34,12 +35,10 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
             <button
               key={index}
               ref={(el) => {
-                tabRefs.current[index] = el;
+                tabRefs.current[index] = el
               }}
               className={`py-2 px-4 text-sm font-medium transition-colors duration-200 ${
-                activeTab === index
-                  ? 'text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                activeTab === index ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
               }`}
               onClick={() => setActiveTab(index)}
               role="tab"
@@ -61,7 +60,7 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
           <div
             key={index}
             className={`transition-opacity duration-300 absolute top-0 left-0 w-full ${
-              activeTab === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              activeTab === index ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
             role="tabpanel"
             aria-labelledby={`tab-${index}`}
@@ -72,8 +71,8 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TabBar;
+export default TabBar
 

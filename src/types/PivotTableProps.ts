@@ -1,8 +1,10 @@
 export interface DataItem {
-  [key: string]: any;
+  [key: string]: any
 }
 
 export interface PivotTableProps {
-  initialData: DataItem[];
+  initialData: DataItem[]
+  title?: string
+  className?: string
 }
 

@@ -7,7 +7,7 @@ import { useDraggableColumns } from '../hooks/useDraggableColumns';
 import { formatDate, formatCurrency, formatNumber } from '../utils/formatters';
 import { exportToExcel, exportToPDF } from '../utils/exportHelpers';
 import { sumBy } from '../utils/dataManipulation';
-import { TableProps, Column, TableSize } from '../types/TableProps';
+import { TableProps, TableSize } from '../types/TableProps';
 
 const sizeClasses: Record<TableSize, string> = {
   xs: "text-xs [&>_tbody>*_td]:p-0.5 [&>_tbody>*_th]:p-0.5",

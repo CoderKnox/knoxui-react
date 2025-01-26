@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import { SelectProps, Option, sizeClasses, colorClasses, baseClasses } from '../types/SelectProps';
-import { ChevronDown, X } from 'lucide-react';
+import React from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
+import { type SelectProps, type Option, sizeClasses, variantClasses, baseClasses } from "../types/SelectProps"
+import { ChevronDown, X } from "lucide-react"
 
 const Select: React.FC<SelectProps> = ({
   options = [],
@@ -8,87 +9,84 @@ const Select: React.FC<SelectProps> = ({
   multiple = false,
   onChange,
   label,
-  size = "m",
-  color="primary",
+  size = "md",
+  variant = "primary",
   required,
-  className = '',
-  wrapperClass = '',
-  labelClass = '',
-  labelTextClass = '',
+  className = "",
+  wrapperClass = "",
+  labelClass = "",
+  labelTextClass = "",
   sx,
   renderOption,
   hideSearch = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [focusedIndex, setFocusedIndex] = useState(-1);
-  const selectRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [focusedIndex, setFocusedIndex] = useState(-1)
+  const selectRef = useRef<HTMLDivElement>(null)
 
   const filteredOptions = useMemo(
-    () =>
-      options.filter((option) =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    [options, searchTerm]
-  );
+    () => options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase())),
+    [options, searchTerm],
+  )
 
   const toggleOption = (option: Option) => {
     if (multiple) {
       const updatedSelection = selectedOptions.includes(option)
         ? selectedOptions.filter((item) => item !== option)
-        : [...selectedOptions, option];
-      setSelectedOptions(updatedSelection);
+        : [...selectedOptions, option]
+      setSelectedOptions(updatedSelection)
       if (onChange) {
-         onChange(updatedSelection);
+        onChange(updatedSelection)
       }
     } else {
-      setSelectedOptions([option]);
-      setIsOpen(false);
+      setSelectedOptions([option])
+      setIsOpen(false)
       if (onChange) {
-         onChange(option);
+        onChange(option)
       }
     }
-  };
+  }
 
   const removeOption = (option: Option) => {
-    const updatedSelection = selectedOptions.filter((item) => item !== option);
-    setSelectedOptions(updatedSelection);
+    const updatedSelection = selectedOptions.filter((item) => item !== option)
+    setSelectedOptions(updatedSelection)
     if (onChange) {
-      onChange(updatedSelection);
+      onChange(updatedSelection)
     }
-  };
+  }
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setIsOpen(false)
       }
-    };
+    }
 
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+    document.addEventListener("mousedown", handleOutsideClick)
+    return () => document.removeEventListener("mousedown", handleOutsideClick)
+  }, [])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!isOpen) return;
+    if (!isOpen) return
 
     if (e.key === "ArrowDown") {
-      setFocusedIndex((prev) => Math.min(prev + 1, filteredOptions.length - 1));
+      setFocusedIndex((prev) => Math.min(prev + 1, filteredOptions.length - 1))
     } else if (e.key === "ArrowUp") {
-      setFocusedIndex((prev) => Math.max(prev - 1, 0));
+      setFocusedIndex((prev) => Math.max(prev - 1, 0))
     } else if (e.key === "Enter" && focusedIndex >= 0) {
-      toggleOption(filteredOptions[focusedIndex]);
+      toggleOption(filteredOptions[focusedIndex])
     } else if (e.key === "Escape") {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (isOpen) {
-      setFocusedIndex(-1);
+      setFocusedIndex(-1)
     }
-  }, [isOpen]);
+  }, [isOpen])
 
   return (
     <div className={wrapperClass} style={sx}>
@@ -99,14 +97,15 @@ const Select: React.FC<SelectProps> = ({
           </span>
         )}
         <div
-          className={`relative w-full ${baseClasses} ${sizeClasses[size]} ${
-            colorClasses[color]
-          } ${className}`}
+          className={`relative w-full ${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
           ref={selectRef}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
-          <div className="flex items-center justify-between w-full p-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+          <div
+            className="flex items-center justify-between w-full p-2 cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <div className="flex flex-wrap gap-1">
               {selectedOptions.length > 0 ? (
                 multiple ? (
@@ -120,8 +119,8 @@ const Select: React.FC<SelectProps> = ({
                         size={14}
                         className="ml-1 cursor-pointer"
                         onClick={(e) => {
-                          e.stopPropagation();
-                          removeOption(option);
+                          e.stopPropagation()
+                          removeOption(option)
                         }}
                       />
                     </span>
@@ -166,8 +165,8 @@ const Select: React.FC<SelectProps> = ({
         </div>
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default Select;
+export default Select
 

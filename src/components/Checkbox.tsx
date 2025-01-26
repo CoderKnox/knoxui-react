@@ -1,51 +1,51 @@
-import React from 'react';
-import { CheckboxProps, colorClasses, sizeClasses, baseClasses } from '../types/CheckboxProps';
+import React from "react"
+import { type CheckboxProps, colorClasses, sizeClasses, baseClasses, labelSizeClasses } from "../types/CheckboxProps"
 
 const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,
-  size = 'm',
-  color = 'primary',
+  size = "md",
+  variant = "primary",
   label,
   onChange,
-  className = '',
-  wrapperClass = '',
+  className = "",
+  wrapperClass = "",
   sx,
   ...props
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      onChange(e);
+      onChange(e)
     }
-  };
+  }
 
   if (label) {
     return (
       <div className={wrapperClass} style={sx}>
-        <label className={`${baseClasses} ${sizeClasses[size]} cursor-pointer`}>
-          <input 
+        <label className={`${baseClasses} ${className} ${labelSizeClasses[size]} cursor-pointer`}>
+          <input
             type="checkbox" 
             checked={checked}
             onChange={handleChange}
-            className={`${colorClasses[color]} ${className}`}
+            className={`${colorClasses[variant]} ${sizeClasses[size]}`}
             {...props}
           />
-          {label && <span className="ml-2">{label}</span>}
+          <span className={`${sizeClasses[size].split(" ").slice(-1)[0]}`}>{label}</span>
         </label>
       </div>
-    );
+    )
   }
 
   return (
-    <input 
-      type="checkbox" 
+    <input
+      type="checkbox"
       checked={checked}
       onChange={handleChange}
-      className={`${colorClasses[color]} ${className} ${sizeClasses[size]}`} 
-      style={sx} 
-      {...props} 
+      className={`${colorClasses[variant]} ${className} ${sizeClasses[size]}`}
+      style={sx}
+      {...props}
     />
-  );
-};
+  )
+}
 
-export default Checkbox;
+export default Checkbox
 

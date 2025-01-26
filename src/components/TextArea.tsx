@@ -1,15 +1,15 @@
-import React from 'react';
-import { TextareaProps, sizeClasses, colorClasses, baseClasses } from '../types/TextareaProps';
+import React from "react"
+import { type TextareaProps, sizeClasses, variantClasses, baseClasses } from "../types/TextareaProps"
 
 const Textarea: React.FC<TextareaProps> = ({
   label,
-  size = 'm',
-  color='primary',
+  size = "md",
+  variant = "primary",
   required,
-  className = '',
-  wrapperClass = '',
-  labelClass = '',
-  labelTextClass = '',
+  className = "",
+  wrapperClass = "",
+  labelClass = "",
+  labelTextClass = "",
   sx,
   rows = 3,
   ...props
@@ -19,19 +19,19 @@ const Textarea: React.FC<TextareaProps> = ({
       <label className={`flex flex-col items-start ${labelClass}`}>
         {label && (
           <span className={`text-sm ${labelTextClass}`}>
-            {label} {required && <span className='text-error'>*</span>}
+            {label} {required && <span className="text-error">*</span>}
           </span>
         )}
-        <textarea 
-          className={`${baseClasses} ${sizeClasses[size]} ${colorClasses[color]} ${className}`} 
+        <textarea
+          className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
           required={required}
           rows={rows}
-          {...props} 
+          {...props}
         />
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default Textarea;
+export default Textarea
 
