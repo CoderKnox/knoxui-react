@@ -205,13 +205,15 @@ interface Column {
     key: string;
     header: string;
     dataType?: 'string' | 'int' | 'float' | 'date' | 'datetime' | 'currency';
+    formatDate?: string;
+    currentFormat?: string;
     sum?: boolean;
 }
 interface TableConfig {
     data: Record<string, any>[];
     columns: Column[];
 }
-type TableSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+type TableSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 interface TableProps {
     tableConfig: TableConfig;
     isSerialized?: boolean;
@@ -248,6 +250,7 @@ interface ThemeProviderProps {
     children: React$1.ReactNode;
     attribute?: string;
     defaultTheme?: string;
+    storageKey?: string;
 }
 declare const ThemeProvider: React$1.FC<ThemeProviderProps>;
 
