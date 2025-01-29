@@ -1,30 +1,31 @@
-import React from 'react';
-import { ArrowDownToLine, Printer } from 'lucide-react';
 import "jspdf-autotable";
+import React from 'react';
+import { sumBy } from '../utils/dataManipulation';
+import { ArrowDownToLine, Printer } from 'lucide-react';
 import { useSortableData } from '../hooks/useSortableData';
+import { TableProps, TableSize } from '../types/TableProps';
 import { useFilterableData } from '../hooks/useFilterableData';
 import { useDraggableColumns } from '../hooks/useDraggableColumns';
-import { formatDate, formatCurrency, formatNumber } from '../utils/formatters';
 import { exportToExcel, exportToPDF } from '../utils/exportHelpers';
-import { sumBy } from '../utils/dataManipulation';
-import { TableProps, TableSize } from '../types/TableProps';
+import { formatDate, formatCurrency, formatNumber } from '../utils/formatters';
+
 
 const sizeClasses: Record<TableSize, string> = {
   xs: "text-xs [&>_tbody>*_td]:p-0.5 [&>_tbody>*_th]:p-0.5",
-  s:  "text-sm [&>_tbody>*_td]:p-1 [&>_tbody>*_th]:p-1 ",
-  m:  "text-base [&>_tbody>*_td]:p-1.5 [&>_tbody>*_th]:p-1.5",
-  l:  "text-lg [&>_tbody>*_td]:p-2 [&>_tbody>*_th]:p-2 ",
+  sm:  "text-sm [&>_tbody>*_td]:p-1 [&>_tbody>*_th]:p-1 ",
+  md:  "text-base [&>_tbody>*_td]:p-1.5 [&>_tbody>*_th]:p-1.5",
+  lg:  "text-lg [&>_tbody>*_td]:p-2 [&>_tbody>*_th]:p-2 ",
   xl: "text-xl [&>_tbody>*_td]:p-2.5 [&>_tbody>*_th]:p-2.5",
 };
 
 const Table: React.FC<TableProps> = ({
   tableConfig = { data: [], columns: [] },
   isSerialized = true,
-  size = "m",
+  size = "md",
   header = true,
   title = "",
-  printSize = "A4 landscape",
-  sum = false
+  sum = false,
+  printSize = "A4 landscape"
 }) => {
   const { data, columns: initialColumns } = tableConfig;
   const baseClasses = "border-collapse border w-full [&>*_th]:border [&>*_td]:border";
@@ -52,7 +53,6 @@ const Table: React.FC<TableProps> = ({
         return true; // Don't merge with previous row if any previous column is not merged
       }
     }
-
     return currentValue !== previousValue;
   };
 
@@ -80,7 +80,6 @@ const Table: React.FC<TableProps> = ({
       }
       rowSpan++;
     }
-
     return rowSpan;
   };
 
@@ -101,6 +100,11 @@ const Table: React.FC<TableProps> = ({
     }
     return cellClass;
   };
+
+  // Display a message or illustration when there is no data to show.
+  if (!filteredItems.length) {
+    return <div className="p-4 text-center text-gray-500">No data available</div>;
+  }
 
   return (
     <div className="bg-base-100">
